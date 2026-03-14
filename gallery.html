@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Seiyuu Voice | Gallery</title>
+
+    <meta name="description" content="Gallery of voice acting projects, videos, and music from Seiyuu Voice community.">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" href="assets/icons/favicon.png">
+
+    <style>
+        #year {
+            font-weight: bold;
+        }
+
+        .gallery-page {
+            padding: 100px 0 60px 0;
+            text-align: center;
+        }
+
+        .gallery-desc {
+            max-width: 600px;
+            margin: auto;
+            margin-bottom: 40px;
+            opacity: .85;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform .25s ease;
+            padding: 10px;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.04);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .music-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .music-card h3 {
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Seiyuu Voice Logo">
+                <span>Seiyuu Voice</span>
+            </a>
+
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#join">Join</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="gallery-page">
+
+            <div class="container">
+
+                <h1>Seiyuu Voice Gallery</h1>
+                <p class="gallery-desc">
+                    Photos, videos, and voice acting projects from our community members.
+                </p>
+
+
+                <div class="gallery-grid">
+
+                    <!-- IMAGE -->
+                    <div class="gallery-item">
+                        <img src="assets/gallery/photo1.jpg" alt="Voice acting project image" loading="lazy">
+                    </div>
+
+
+                    <!-- IMAGE -->
+                    <div class="gallery-item">
+                        <img src="assets/gallery/photo2.jpg" alt="Community artwork" loading="lazy">
+                    </div>
+
+
+                    <!-- VIDEO -->
+                    <div class="gallery-item">
+                        <video controls preload="metadata">
+                            <source src="assets/gallery/voice-demo.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+
+                    <!-- VIDEO -->
+                    <div class="gallery-item">
+                        <video controls preload="metadata">
+                            <source src="assets/gallery/anime-dub.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+
+                    <!-- MUSIC -->
+                    <div class="gallery-item music-card">
+
+                        <h3>Voice Acting Sample</h3>
+
+                        <audio controls>
+                            <source src="assets/gallery/voice-sample.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                    </div>
+
+
+                    <!-- MUSIC -->
+                    <div class="gallery-item music-card">
+
+                        <h3>Community Song</h3>
+
+                        <audio controls>
+                            <source src="assets/gallery/community-theme.mp3" type="audio/mpeg">
+                        </audio>
+
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-cta">
+
+                    <p>Want your work featured here?</p>
+
+                    <a href="https://chat.whatsapp.com/L0AVT6RCDSt1fvbVVtorko?mode=hq2tcla" class="cta-big"
+                        target="_blank" rel="noopener noreferrer">
+                        Join the Community
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <p>© <span id="year"></span> Seiyuu Voice Community</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
