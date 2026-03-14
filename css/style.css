@@ -1,0 +1,509 @@
+/* =========================================
+   1. VARIABLES & SETUP
+   ========================================= */
+:root {
+    --pink-main: #ff6fa8;
+    --pink-hover: #ff4c92;
+    /* Variabel baru untuk efek hover */
+    --pink-soft: #ffd6e7;
+    --pink-bg: #fff2f7;
+    --navy: #2c3558;
+    --white: #ffffff;
+    --transition-speed: 0.3s;
+
+    /* Variabel Tambahan yang Tadi Kurang */
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 111, 168, 0.2);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --radius: 15px;
+    --accent: #ff6fa8;
+    /* Bisa disamakan dengan pink-main */
+    --accent-soft: #fff2f7;
+    --transition: all 0.3s ease;
+}
+
+/* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Smooth Scrolling untuk navigasi anchor link */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--pink-bg);
+    color: var(--navy);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* Mencegah scroll horizontal yang tidak disengaja */
+}
+
+/* =========================================
+   2. TYPOGRAPHY & LAYOUT
+   ========================================= */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h1,
+h2 {
+    font-family: 'Fredoka', sans-serif;
+}
+
+/* Fokus Aksesibilitas (untuk pengguna Keyboard/Tab) */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px dashed var(--pink-main);
+    outline-offset: 4px;
+}
+
+/* =========================================
+   3. NAVIGATION BAR
+   ========================================= */
+.navbar {
+    background: var(--white);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+nav a {
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--pink-main);
+    transition: width .25s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    /* Sedikit diperlebar agar bernapas */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 24px;
+    /* Sedikit diperbesar */
+    font-weight: 600;
+    color: var(--pink-main);
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    border-radius: 12px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 500;
+    transition: color var(--transition-speed) ease;
+}
+
+nav a:hover {
+    color: var(--pink-main);
+}
+
+/* =========================================
+   4. BUTTONS & CTA
+   ========================================= */
+.cta-button:active,
+.cta-big:active {
+    transform: scale(0.97);
+}
+
+.cta-button,
+.cta-big {
+    display: inline-block;
+    background: var(--pink-main);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: 600;
+    transition: background var(--transition-speed) ease, transform 0.2s ease;
+}
+
+.cta-button {
+    padding: 12px 28px;
+}
+
+.cta-big {
+    margin-top: 20px;
+    padding: 15px 35px;
+    font-size: 18px;
+}
+
+/* Efek angkat (lift) sedikit saat di-hover */
+.cta-button:hover,
+.cta-big:hover {
+    background: var(--pink-hover);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   5. SECTIONS (Hero & About)
+   ========================================= */
+.hero {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: var(--pink-soft);
+    border-radius: 50%;
+    top: -120px;
+    left: -120px;
+    z-index: -1;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: #ffe3ef;
+    border-radius: 50%;
+    bottom: -100px;
+    right: -80px;
+    z-index: -1;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 300px;
+    /* Memastikan teks tidak terlalu terjepit di layar menengah */
+    max-width: 520px;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    /* Menggunakan rem untuk skalabilitas yang lebih baik */
+    color: var(--pink-main);
+    line-height: 1.2;
+}
+
+.tagline {
+    margin: 15px 0 25px 0;
+    /* Jarak bawah diperbesar sedikit */
+    font-size: 1.125rem;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    /* Memastikan gambar berada di kanan */
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.hero-image img {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    transition: transform .4s ease;
+    border-radius: 12px;
+}
+
+.hero-image img:hover {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+.about {
+    padding: 80px 0;
+    background: var(--white);
+    text-align: center;
+}
+
+.about h2,
+.cta-section h2 {
+    color: var(--pink-main);
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+.about p {
+    max-width: 750px;
+    margin: 0 auto 15px auto;
+    font-size: 1.1rem;
+}
+
+.cta-section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 700px;
+    margin: auto;
+    text-align: left;
+}
+
+.about-content h3 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: var(--pink-main);
+}
+
+.about-content ul {
+    padding-left: 20px;
+}
+
+.about-content li {
+    margin-bottom: 6px;
+}
+
+.welcome-text {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.warning {
+    text-align: center;
+    color: var(--pink-hover);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.footer-text {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* =========================================
+   6. FOOTER
+   ========================================= */
+footer {
+    background: var(--navy);
+    color: var(--white);
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 40px;
+}
+
+/* =========================================
+   7. MOBILE MENU TOGGLE (Hamburger)
+   ========================================= */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background: var(--navy);
+    margin: 4px 0;
+    border-radius: 3px;
+    transition: all var(--transition-speed) ease;
+}
+
+/* =========================================
+   8. RESPONSIVE DESIGN (Media Queries)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* Merubah transisi menu mobile agar lebih halus (tidak kaku seperti display:none) */
+    nav {
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: var(--white);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+
+        /* Setup untuk animasi fade & slide */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all var(--transition-speed) ease;
+    }
+
+    nav.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-image {
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .hero-image img {
+        max-width: 260px;
+        border-radius: 12px;
+    }
+}
+
+/* ================= INTRO BOX ================= */
+.intro-box {
+    margin: 50px auto;
+    max-width: 520px;
+    padding: 25px;
+    background: var(--glass);
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+}
+
+.copy-container {
+    background: var(--accent-soft);
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+#introText {
+    white-space: pre;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    /* Jarak untuk scrollbar */
+    scrollbar-width: thin;
+    /* Untuk Firefox */
+    scrollbar-color: var(--accent) transparent;
+}
+
+/* Custom Scrollbar untuk Chrome/Safari agar tetap estetik */
+#introText::-webkit-scrollbar {
+    height: 4px;
+}
+
+#introText::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+
+.btn-copy {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-copy:hover {
+    transform: translateY(-2px);
+}
+
+/* .btn-copy:active {
+    transform: translateY(0);
+} */
+
+/* ================= FLOATING IMAGE ================= */
+/* .floating-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    transition: transform .4s ease;
+    display: flex;
+    align-items: center;
+} */
+
+/* ================= STATUS ================= */
+.status-box {
+    padding: 60px 20px;
+    text-align: center;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+/* .status-box h2 {
+    color: var(--pink-main);
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+} */
