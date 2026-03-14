@@ -7,9 +7,6 @@
 
     <title>Seiyuu Voice | Gallery</title>
 
-    <meta name="description"
-        content="Gallery of voice acting projects, videos, and music from the Seiyuu Voice community.">
-
     <link rel="stylesheet" href="css/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,87 +16,161 @@
         href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;500&display=swap"
         rel="stylesheet">
 
-    <link rel="icon" href="assets/icons/favicon.png">
-
-    <meta property="og:title" content="Seiyuu Voice Gallery">
-    <meta property="og:description" content="Photos, videos, and voice acting works from Seiyuu Voice.">
-    <meta property="og:image" content="assets/images/logo.png">
-    <meta property="og:type" content="website">
-
     <style>
-        #year {
-            font-weight: bold;
+        /* ===== ROOT VARIABLES ===== */
+        :root {
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+            --shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.25s ease;
         }
 
+        /* ===== BASE ===== */
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            background: var(--bg-color);
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* ===== GALLERY PAGE ===== */
         .gallery-page {
-            padding: 110px 0 70px;
+            padding: 100px 0;
             text-align: center;
         }
 
-        .gallery-desc {
-            max-width: 640px;
-            margin: auto;
-            margin-bottom: 45px;
-            opacity: .85;
+        .gallery-category {
+            margin: 60px 0 20px;
+            font-family: "Fredoka", sans-serif;
+            font-size: 1.8rem;
         }
 
+        /* ===== GRID ===== */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
         }
 
-        .gallery-item {
-            background: #fff;
-            border-radius: 16px;
+        /* ===== CARD ===== */
+        .gallery-card {
+            cursor: pointer;
+            border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-            transition: transform .25s ease, box-shadow .25s ease;
-            padding: 12px;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            transition: transform var(--transition),
+                box-shadow var(--transition);
         }
 
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+        .gallery-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
         }
 
-        .gallery-item img,
-        .gallery-item video {
+        .gallery-card img {
             width: 100%;
-            height: auto;
-            border-radius: 12px;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
-        .gallery-item video {
-            aspect-ratio: 16/9;
-            object-fit: cover;
-        }
-
-        .music-card {
-            display: flex;
-            flex-direction: column;
+        /* ===== MODAL ===== */
+        .media-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
             align-items: center;
             justify-content: center;
-            padding: 25px;
-            gap: 10px;
+            z-index: 999;
+            padding: 20px;
         }
 
-        .music-card h3 {
-            font-size: 1rem;
+        .media-modal.active {
+            display: flex;
+        }
+
+        /* ===== MODAL CONTENT ===== */
+        .modal-content {
+            position: relative;
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--radius);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn .25s ease;
+        }
+
+        .modal-content img,
+        .modal-content video {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        /* ===== CLOSE BUTTON ===== */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            opacity: .7;
+        }
+
+        /* ===== TEXT ===== */
+        #mediaTitle {
+            margin-top: 15px;
             font-weight: 600;
         }
 
-        .gallery-cta {
-            margin-top: 50px;
+        #mediaDesc {
+            opacity: .8;
+            font-size: .95rem;
         }
 
-        .gallery-cta p {
-            margin-bottom: 12px;
-            opacity: .9;
+        /* ===== ANIMATION ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width:600px) {
+
+            .gallery-page {
+                padding: 70px 0;
+            }
+
+            .gallery-category {
+                font-size: 1.5rem;
+            }
+
         }
     </style>
-
 </head>
 
 <body>
@@ -108,122 +179,180 @@
         <div class="container nav-container">
 
             <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="Seiyuu Voice Logo">
+                <img src="assets/images/logo.png" alt="logo">
                 <span>Seiyuu Voice</span>
             </a>
 
-            <nav id="nav-menu" aria-label="Main Navigation">
+            <nav>
                 <ul>
-                    <li><a href="index.html#home">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#join">Join</a></li>
-                    <li><a href="gallery.html" aria-current="page">Gallery</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
                 </ul>
             </nav>
-
-            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
 
         </div>
     </header>
 
-    <main>
 
-        <section class="gallery-page">
+    <main class="gallery-page">
 
-            <div class="container">
+        <div class="container">
 
-                <h1>Seiyuu Voice Gallery</h1>
+            <h1>Seiyuu Voice Gallery</h1>
 
-                <p class="gallery-desc">
-                    Explore photos, videos, and voice acting works created by members of the Seiyuu Voice community.
-                </p>
+            <!-- ================= IMAGES ================= -->
 
-                <div class="gallery-grid">
+            <h2 class="gallery-category">Images</h2>
 
-                    <!-- IMAGE -->
-                    <figure class="gallery-item">
-                        <img src="assets/gallery/photo1.jpg" alt="Voice acting project artwork" loading="lazy">
-                    </figure>
+            <div class="gallery-grid">
 
-                    <!-- IMAGE -->
-                    <figure class="gallery-item">
-                        <img src="assets/gallery/photo2.jpg" alt="Anime community artwork" loading="lazy">
-                    </figure>
+                <div class="gallery-card" data-type="image" data-src="assets/gallery/photo1.jpg"
+                    data-title="Voice Acting Artwork" data-desc="Artwork from Seiyuu Voice community.">
 
-                    <!-- VIDEO -->
-                    <figure class="gallery-item">
-                        <video controls preload="metadata">
-                            <source src="assets/gallery/voice-demo.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </figure>
-
-                    <!-- VIDEO -->
-                    <figure class="gallery-item">
-                        <video controls preload="metadata">
-                            <source src="assets/gallery/anime-dub.mp4" type="video/mp4">
-                        </video>
-                    </figure>
-
-                    <!-- AUDIO -->
-                    <figure class="gallery-item music-card">
-
-                        <h3>Voice Acting Sample</h3>
-
-                        <audio controls preload="none">
-                            <source src="assets/gallery/voice-sample.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-
-                    </figure>
-
-                    <!-- AUDIO -->
-                    <figure class="gallery-item music-card">
-
-                        <h3>Community Song</h3>
-
-                        <audio controls preload="none">
-                            <source src="assets/gallery/community-theme.mp3" type="audio/mpeg">
-                        </audio>
-
-                    </figure>
-
+                    <img src="assets/gallery/photo1.jpg" loading="lazy">
                 </div>
 
-                <div class="gallery-cta">
+                <div class="gallery-card" data-type="image" data-src="assets/gallery/photo2.jpg"
+                    data-title="Community Project" data-desc="Illustration created by community members.">
 
-                    <p>Want your work featured here?</p>
-
-                    <a href="https://chat.whatsapp.com/L0AVT6RCDSt1fvbVVtorko?mode=hq2tcla" class="cta-big"
-                        target="_blank" rel="noopener noreferrer">
-                        Join the Community
-                    </a>
-
+                    <img src="assets/gallery/photo2.jpg" loading="lazy">
                 </div>
 
             </div>
 
-        </section>
+
+            <!-- ================= VIDEOS ================= -->
+
+            <h2 class="gallery-category">Videos</h2>
+
+            <div class="gallery-grid">
+
+                <div class="gallery-card" data-type="video" data-src="assets/gallery/anime-dub.mp4"
+                    data-title="Anime Dub Practice" data-desc="Voice acting practice from Seiyuu Voice.">
+
+                    <img src="assets/gallery/video-thumb.jpg">
+                </div>
+
+                <div class="gallery-card" data-type="video" data-src="assets/gallery/voice-demo.mp4"
+                    data-title="Anime Dub Practice" data-desc="Voice acting practice from Seiyuu Voice.">
+
+                    <img src="assets/gallery/video-thumb.jpg">
+                </div>
+
+            </div>
+
+
+            <!-- ================= AUDIO ================= -->
+
+            <h2 class="gallery-category">Audio</h2>
+
+            <div class="gallery-grid">
+
+                <div class="gallery-card" data-type="audio" data-src="assets/gallery/voice-sample.mp3"
+                    data-title="Voice Sample" data-desc="Voice acting demo from a member.">
+
+                    <img src="assets/images/audio-cover.png">
+                </div>
+
+            </div>
+
+        </div>
 
     </main>
 
-    <footer>
-        <div class="container">
-            <p>© <span id="year"></span> Seiyuu Voice Community</p>
-        </div>
-    </footer>
 
-    <script src="js/script.js"></script>
+    <!-- ================= MODAL ================= -->
+
+    <div class="media-modal" id="mediaModal">
+
+        <button class="close-btn" id="closeModal">✕</button>
+
+        <div class="modal-content">
+
+            <div id="mediaContainer"></div>
+
+            <h3 id="mediaTitle"></h3>
+            <p id="mediaDesc"></p>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/gallery.js"></script>
 
     <script>
-        document.getElementById("year").textContent =
-            new Date().getFullYear();
-    </script>
+        const cards = document.querySelectorAll(".gallery-card");
+        const modal = document.getElementById("mediaModal");
+        const mediaContainer = document.getElementById("mediaContainer");
+        const title = document.getElementById("mediaTitle");
+        const desc = document.getElementById("mediaDesc");
+        const closeBtn = document.getElementById("closeModal");
 
+
+        cards.forEach(card => {
+
+            card.addEventListener("click", () => {
+
+                const type = card.dataset.type;
+                const src = card.dataset.src;
+                const mediaTitle = card.dataset.title;
+                const mediaDesc = card.dataset.desc;
+
+                mediaContainer.innerHTML = "";
+
+                let mediaElement;
+
+                if (type === "image") {
+
+                    mediaElement = document.createElement("img");
+                    mediaElement.src = src;
+
+                }
+
+                if (type === "video") {
+
+                    mediaElement = document.createElement("video");
+                    mediaElement.src = src;
+                    mediaElement.controls = true;
+                    mediaElement.autoplay = true;
+
+                }
+
+                if (type === "audio") {
+
+                    mediaElement = document.createElement("audio");
+                    mediaElement.src = src;
+                    mediaElement.controls = true;
+                    mediaElement.autoplay = true;
+
+                }
+
+                mediaContainer.appendChild(mediaElement);
+
+                title.textContent = mediaTitle;
+                desc.textContent = mediaDesc;
+
+                modal.classList.add("active");
+
+            });
+
+        });
+
+
+        closeBtn.onclick = () => {
+            modal.classList.remove("active");
+            mediaContainer.innerHTML = "";
+        };
+
+
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.classList.remove("active");
+                mediaContainer.innerHTML = "";
+            }
+        });
+    </script>
 </body>
 
 </html>

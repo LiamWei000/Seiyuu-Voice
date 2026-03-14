@@ -212,7 +212,6 @@ nav a:hover {
     justify-content: space-between;
     gap: 40px;
     flex-wrap: wrap;
-    align-items: center;
 }
 
 .hero-text {
