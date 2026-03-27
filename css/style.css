@@ -20,6 +20,19 @@
     /* Bisa disamakan dengan pink-main */
     --accent-soft: #fff2f7;
     --transition: all 0.3s ease;
+
+    --bg-main: #ffffff;
+    --text-main: #2c3558;
+}
+
+body.dark {
+    --bg-main: #121212;
+    --text-main: #f5f5f5;
+
+    --pink-bg: #1e1e1e;
+    --pink-soft: #2a2a2a;
+    --white: #1a1a1a;
+    --navy: #e4e8ff;
 }
 
 /* Reset Dasar */
@@ -41,6 +54,10 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     /* Mencegah scroll horizontal yang tidak disengaja */
+
+    background: var(--bg-main);
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* =========================================
@@ -74,6 +91,7 @@ button:focus-visible {
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
+    background: var(--white);
 }
 
 nav a {
@@ -272,6 +290,7 @@ nav a:hover {
     padding: 80px 0;
     background: var(--white);
     text-align: center;
+    background: var(--pink-bg);
 }
 
 .about h2,
@@ -488,7 +507,7 @@ footer {
 }
 
 /* ================= INTRO BOX ================= */
-.intro-box {
+/* .intro-box {
     margin: 50px auto;
     max-width: 520px;
     padding: 25px;
@@ -511,13 +530,10 @@ footer {
     font-size: 0.85rem;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    /* Jarak untuk scrollbar */
     scrollbar-width: thin;
-    /* Untuk Firefox */
     scrollbar-color: var(--accent) transparent;
 }
 
-/* Custom Scrollbar untuk Chrome/Safari agar tetap estetik */
 #introText::-webkit-scrollbar {
     height: 4px;
 }
@@ -541,7 +557,7 @@ footer {
     transform: translateY(-2px);
 }
 
-/* .btn-copy:active {
+.btn-copy:active {
     transform: translateY(0);
 } */
 
@@ -556,7 +572,7 @@ footer {
 } */
 
 /* ================= STATUS ================= */
-.status-box {
+/* .status-box {
     padding: 60px 20px;
     text-align: center;
     background: var(--white);
@@ -564,10 +580,30 @@ footer {
     box-shadow: var(--shadow-soft);
     margin: 40px auto;
     max-width: 800px;
-}
+} */
 
 /* .status-box h2 {
     color: var(--pink-main);
     margin-bottom: 20px;
     font-size: 2.5rem;
 } */
+
+/* .status-box p {
+    font-size: 1.2rem;
+    color: var(--navy);
+} */
+
+#theme-toggle {
+    background: var(--pink-soft);
+    border: none;
+    border-radius: 50%;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all .3s ease;
+}
+
+#theme-toggle:hover {
+    background: var(--pink-main);
+    color: white;
+}

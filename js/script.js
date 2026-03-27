@@ -50,44 +50,72 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ===============================
    COPY INTRO (Better UX)
 ================================= */
-function copyIntro() {
-    const intro = document.getElementById("introText");
-    const status = document.getElementById("copyStatus");
+// function copyIntro() {
+//     const intro = document.getElementById("introText");
+//     const status = document.getElementById("copyStatus");
 
-    if (!intro) return;
+//     if (!intro) return;
 
-    navigator.clipboard.writeText(intro.innerText)
-        .then(() => {
-            if (!status) return;
-            status.style.display = "block";
-            status.textContent = "Berhasil disalin! ✨";
+//     navigator.clipboard.writeText(intro.innerText)
+//         .then(() => {
+//             if (!status) return;
+//             status.style.display = "block";
+//             status.textContent = "Berhasil disalin! ✨";
 
-            setTimeout(() => {
-                status.style.display = "none";
-            }, 2000);
-        })
-        .catch(() => {
-            if (!status) return;
-            status.style.display = "block";
-            status.textContent = "Gagal menyalin ❌";
-        });
-}
+//             setTimeout(() => {
+//                 status.style.display = "none";
+//             }, 2000);
+//         })
+//         .catch(() => {
+//             if (!status) return;
+//             status.style.display = "block";
+//             status.textContent = "Gagal menyalin ❌";
+//         });
+// }
 
 /* ===============================
    LIVE CLOCK
 ================================= */
-function initClock() {
-    const clock = document.getElementById("clock");
-    if (!clock) return;
+// function initClock() {
+//     const clock = document.getElementById("clock");
+//     if (!clock) return;
 
-    const updateClock = () => {
-        clock.textContent = new Date().toLocaleTimeString("id-ID", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-        });
-    };
+//     const updateClock = () => {
+//         clock.textContent = new Date().toLocaleTimeString("id-ID", {
+//             hour: "2-digit",
+//             minute: "2-digit",
+//             second: "2-digit"
+//         });
+//     };
 
-    updateClock();
-    setInterval(updateClock, 1000);
+//     updateClock();
+//     setInterval(updateClock, 1000);
+// }
+
+if (!localStorage.getItem("theme")) {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.body.classList.add("dark");
+        toggleBtn.textContent = "☀️";
+    }
 }
+
+const toggleBtn = document.getElementById("theme-toggle");
+
+// Load saved theme
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    toggleBtn.textContent = "☀️";
+}
+
+// Toggle click
+toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        toggleBtn.textContent = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        toggleBtn.textContent = "🌙";
+    }
+});
