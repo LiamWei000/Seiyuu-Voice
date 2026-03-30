@@ -1,121 +1,104 @@
-// Pastikan HTML selesai dimuat sebelum menjalankan script
-document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("menu-toggle");
-    const nav = document.getElementById("nav-menu");
+// ==========================
+// SMOOTH SCROLL (SAFE + OFFSET)
+// ==========================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href");
 
-    // Mengambil semua tautan di dalam navigasi
-    const navLinks = nav ? nav.querySelectorAll("a") : [];
+        // Skip kalau cuma "#"
+        if (!targetId || targetId === "#") return;
 
-    // Keamanan: Cek apakah elemen benar-benar ada di halaman
-    if (toggle && nav) {
+        const target = document.querySelector(targetId);
 
-        // 1. Fungsi Toggle Menu
-        toggle.addEventListener("click", (e) => {
-            e.stopPropagation(); // Mencegah klik tembus ke document
-            nav.classList.toggle("active");
+        // Safety check (biar gak error)
+        if (!target) return;
 
-            // Update aria-expanded untuk aksesibilitas
-            const isActive = nav.classList.contains("active");
-            toggle.setAttribute("aria-expanded", isActive);
+        e.preventDefault();
+
+        // Offset navbar (biar gak ketutup header)
+        const navbarHeight = document.querySelector(".navbar")?.offsetHeight || 0;
+
+        const targetPosition =
+            target.getBoundingClientRect().top +
+            window.pageYOffset -
+            navbarHeight;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth"
         });
-
-        // 2. Tutup menu otomatis saat tautan diklik (UX untuk mobile)
-        navLinks.forEach(link => {
-            link.addEventListener("click", () => {
-                nav.classList.remove("active");
-                toggle.setAttribute("aria-expanded", "false");
-            });
-        });
-
-        // 3. Tutup menu jika user mengklik sembarang tempat di luar menu
-        document.addEventListener("click", (e) => {
-            const isClickInsideMenu = nav.contains(e.target);
-            const isClickOnToggle = toggle.contains(e.target);
-
-            if (!isClickInsideMenu && !isClickOnToggle && nav.classList.contains("active")) {
-                nav.classList.remove("active");
-                toggle.setAttribute("aria-expanded", "false");
-            }
-        });
-    }
-
-    initClock();
-
-    // const yearEl = document.getElementById("year");
-    // if (yearEl) yearEl.textContent = new Date().getFullYear();
+    });
 });
 
-// document.getElementById("year").textContent = new Date().getFullYear();
 
-/* ===============================
-   COPY INTRO (Better UX)
-================================= */
-// function copyIntro() {
-//     const intro = document.getElementById("introText");
-//     const status = document.getElementById("copyStatus");
+// ==========================
+// MOBILE MENU TOGGLE
+// ==========================
+const toggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".nav-links");
 
-//     if (!intro) return;
+if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+        nav.classList.toggle("active");
+    });
 
-//     navigator.clipboard.writeText(intro.innerText)
-//         .then(() => {
-//             if (!status) return;
-//             status.style.display = "block";
-//             status.textContent = "Berhasil disalin! ✨";
-
-//             setTimeout(() => {
-//                 status.style.display = "none";
-//             }, 2000);
-//         })
-//         .catch(() => {
-//             if (!status) return;
-//             status.style.display = "block";
-//             status.textContent = "Gagal menyalin ❌";
-//         });
-// }
-
-/* ===============================
-   LIVE CLOCK
-================================= */
-// function initClock() {
-//     const clock = document.getElementById("clock");
-//     if (!clock) return;
-
-//     const updateClock = () => {
-//         clock.textContent = new Date().toLocaleTimeString("id-ID", {
-//             hour: "2-digit",
-//             minute: "2-digit",
-//             second: "2-digit"
-//         });
-//     };
-
-//     updateClock();
-//     setInterval(updateClock, 1000);
-// }
-
-if (!localStorage.getItem("theme")) {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.body.classList.add("dark");
-        toggleBtn.textContent = "☀️";
-    }
+    // Auto close menu saat klik link
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            nav.classList.remove("active");
+        });
+    });
 }
 
-const toggleBtn = document.getElementById("theme-toggle");
 
-// Load saved theme
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-    toggleBtn.textContent = "☀️";
+// ==========================
+// GLITCH EFFECT (OPTIMIZED)
+// ==========================
+const glitch = document.querySelector(".glitch");
+
+if (glitch) {
+    let lastFlicker = 0;
+
+    const glitchFlicker = (time) => {
+        // Batasi update biar gak berat (performance)
+        if (time - lastFlicker > 120) {
+            glitch.style.opacity = Math.random() > 0.92 ? "0.6" : "1";
+            lastFlicker = time;
+        }
+
+        requestAnimationFrame(glitchFlicker);
+    };
+
+    requestAnimationFrame(glitchFlicker);
 }
 
-// Toggle click
-toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
 
-    if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-        toggleBtn.textContent = "☀️";
-    } else {
-        localStorage.setItem("theme", "light");
-        toggleBtn.textContent = "🌙";
+// ==========================
+// OPTIONAL: SCROLL ACTIVE LINK
+// ==========================
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+        }
+    });
+});
+
+document.addEventListener("click", (e) => {
+    if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove("active");
     }
 });
