@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Seiyuu Voice - A friendly WhatsApp community for anime fans exploring Japanese Voice Acting and Voice Club Japan culture.">
+
+    <title>Seiyuu Voice | Japanese Voice Acting Community</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <meta property="og:title" content="Seiyuu Voice Community">
+    <meta property="og:description" content="A friendly WhatsApp community for anime voice acting fans.">
+    <meta property="og:image" content="assets/images/logo.png">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="assets/icons/favicon.png">
+
+    <style>
+        #year {
+            font-weight: bold;
+        }
+
+        /* =========================================
+   1. VARIABLES & SETUP
+   ========================================= */
+        :root {
+            --pink-main: #ff6fa8;
+            --pink-hover: #ff4c92;
+            /* Variabel baru untuk efek hover */
+            --pink-soft: #ffd6e7;
+            --pink-bg: #fff2f7;
+            --navy: #2c3558;
+            --white: #ffffff;
+            --transition-speed: 0.3s;
+
+            /* Variabel Tambahan yang Tadi Kurang */
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 111, 168, 0.2);
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --radius: 15px;
+            --accent: #ff6fa8;
+            /* Bisa disamakan dengan pink-main */
+            --accent-soft: #fff2f7;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Smooth Scrolling untuk navigasi anchor link */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--pink-bg);
+            color: var(--navy);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Mencegah scroll horizontal yang tidak disengaja */
+        }
+
+        /* =========================================
+   2. TYPOGRAPHY & LAYOUT
+   ========================================= */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Fokus Aksesibilitas (untuk pengguna Keyboard/Tab) */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px dashed var(--pink-main);
+            outline-offset: 4px;
+        }
+
+        /* =========================================
+   3. NAVIGATION BAR
+   ========================================= */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav a {
+            position: relative;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: var(--pink-main);
+            transition: width .25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            /* Sedikit diperlebar agar bernapas */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            /* Sedikit diperbesar */
+            font-weight: 600;
+            color: var(--pink-main);
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 500;
+            transition: color var(--transition-speed) ease;
+        }
+
+        nav a:hover {
+            color: var(--pink-main);
+        }
+
+        /* =========================================
+   4. BUTTONS & CTA
+   ========================================= */
+        .cta-button:active,
+        .cta-big:active {
+            transform: scale(0.97);
+        }
+
+        .cta-button,
+        .cta-big {
+            display: inline-block;
+            background: var(--pink-main);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: background var(--transition-speed) ease, transform 0.2s ease;
+        }
+
+        .cta-button {
+            padding: 12px 28px;
+        }
+
+        .cta-big {
+            margin-top: 20px;
+            padding: 15px 35px;
+            font-size: 18px;
+        }
+
+        /* Efek angkat (lift) sedikit saat di-hover */
+        .cta-button:hover,
+        .cta-big:hover {
+            background: var(--pink-hover);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+   5. SECTIONS (Hero & About)
+   ========================================= */
+        .hero {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: var(--pink-soft);
+            border-radius: 50%;
+            top: -120px;
+            left: -120px;
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: #ffe3ef;
+            border-radius: 50%;
+            bottom: -100px;
+            right: -80px;
+            z-index: -1;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            /* Memastikan teks tidak terlalu terjepit di layar menengah */
+            max-width: 520px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            /* Menggunakan rem untuk skalabilitas yang lebih baik */
+            color: var(--pink-main);
+            line-height: 1.2;
+        }
+
+        .tagline {
+            margin: 15px 0 25px 0;
+            /* Jarak bawah diperbesar sedikit */
+            font-size: 1.125rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            /* Memastikan gambar berada di kanan */
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .hero-image img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            transition: transform .4s ease;
+            border-radius: 12px;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        .about {
+            padding: 80px 0;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .about h2,
+        .cta-section h2 {
+            color: var(--pink-main);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .about p {
+            max-width: 750px;
+            margin: 0 auto 15px auto;
+            font-size: 1.1rem;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 700px;
+            margin: auto;
+            text-align: left;
+        }
+
+        .about-content h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: var(--pink-main);
+        }
+
+        .about-content ul {
+            padding-left: 20px;
+        }
+
+        .about-content li {
+            margin-bottom: 6px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .warning {
+            text-align: center;
+            color: var(--pink-hover);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* =========================================
+    X. GALLERY SECTION (Tambahkan di bawah section 5)
+   ========================================= */
+        .gallery-section {
+            padding: 80px 0;
+            background: var(--white);
+            /* Memberi kontras dengan background body pink-bg */
+            text-align: center;
+        }
+
+        .gallery-section h2 {
+            color: var(--pink-main);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .gallery-section p {
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            font-size: 1.1rem;
+            color: var(--navy);
+        }
+
+        /* Styling Tombol Galeri (Mengikuti gaya .cta-big) */
+        .gallery-big {
+            display: inline-block;
+            background: var(--pink-main);
+            color: var(--white);
+            text-decoration: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: var(--transition);
+            /* Menggunakan variabel transition kamu */
+            box-shadow: 0 4px 15px rgba(255, 111, 168, 0.3);
+        }
+
+        .gallery-big:hover {
+            background: var(--pink-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 111, 168, 0.4);
+        }
+
+        .gallery-big:active {
+            transform: scale(0.97);
+        }
+
+        /* Penyesuaian Responsif */
+        @media (max-width: 768px) {
+            .gallery-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .gallery-big {
+                width: 100%;
+                max-width: 280px;
+                padding: 12px 20px;
+            }
+        }
+
+        /* =========================================
+   6. FOOTER
+   ========================================= */
+        footer {
+            background: var(--navy);
+            color: var(--white);
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: 40px;
+        }
+
+        /* =========================================
+   7. MOBILE MENU TOGGLE (Hamburger)
+   ========================================= */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: var(--navy);
+            margin: 4px 0;
+            border-radius: 3px;
+            transition: all var(--transition-speed) ease;
+        }
+
+        /* =========================================
+   8. RESPONSIVE DESIGN (Media Queries)
+   ========================================= */
+        @media (max-width: 768px) {
+
+            /* Merubah transisi menu mobile agar lebih halus (tidak kaku seperti display:none) */
+            nav {
+                position: absolute;
+                top: 70px;
+                right: 20px;
+                background: var(--white);
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 10px;
+                width: 200px;
+
+                /* Setup untuk animasi fade & slide */
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all var(--transition-speed) ease;
+            }
+
+            nav.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .hero-image img {
+                max-width: 260px;
+                border-radius: 12px;
+            }
+        }
+
+        /* ================= INTRO BOX ================= */
+        .intro-box {
+            margin: 50px auto;
+            max-width: 520px;
+            padding: 25px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .copy-container {
+            background: var(--accent-soft);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        #introText {
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            /* Jarak untuk scrollbar */
+            scrollbar-width: thin;
+            /* Untuk Firefox */
+            scrollbar-color: var(--accent) transparent;
+        }
+
+        /* Custom Scrollbar untuk Chrome/Safari agar tetap estetik */
+        #introText::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        #introText::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        .btn-copy {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-copy:hover {
+            transform: translateY(-2px);
+        }
+
+        /* .btn-copy:active {
+    transform: translateY(0);
+} */
+
+        /* ================= FLOATING IMAGE ================= */
+        /* .floating-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    transition: transform .4s ease;
+    display: flex;
+    align-items: center;
+} */
+
+        /* ================= STATUS ================= */
+        .status-box {
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+            margin: 40px auto;
+            max-width: 800px;
+        }
+
+        /* .status-box h2 {
+    color: var(--pink-main);
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+} */
+    </style>
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <img src="assets/images/logo.png" alt="Seiyuu Voice Logo">
+                <span>Seiyuu Voice</span>
+            </a>
+
+            <nav id="nav-menu" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#join">Join</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero-container">
+                <div class="hero-text">
+                    <h1>Seiyuu Voice</h1>
+                    <p class="tagline">
+                        A friendly community for anime fans exploring Japanese Voice Acting and Voice Club Japan
+                        culture.
+                    </p>
+                    <a href="https://chat.whatsapp.com/L0AVT6RCDSt1fvbVVtorko?mode=hq2tcla" class="cta-button"
+                        aria-label="Join Seiyuu Voice WhatsApp Group" target="_blank" rel="noopener noreferrer">
+                        Join our WhatsApp Group
+                    </a>
+                </div>
+
+                <div class="hero-image">
+                    <img src="assets/images/hero-character.png" alt="Mascot anime character of Seiyuu Voice"
+                        loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <!-- <p>
+                    Seiyuu Voice is a WhatsApp-based community dedicated to fans and learners of Japanese Voice Acting.
+                    Our group focuses on VA (Voice Acting) practice, VCJ (Voice Club Japan), and sharing knowledge about
+                    the world of anime voice performance.
+                </p>
+                <p>
+                    Whether you're an anime fan, aspiring voice actor, or just curious about how Japanese voice acting
+                    works, Seiyuu Voice provides a welcoming place to learn, collaborate, and have fun together.
+                </p> -->
+                <!-- <div class="about-content">
+                    <p class="welcome-text">Welcome to <strong>本 Seiyuu Voice ⛩️ [Generation 2]</strong></p>
+
+                    <p class="warning">‼️ Harap baca deskripsi ‼️</p>
+
+                    <h3>⌗ Rules!! 𖦹</h3>
+                    <ul>
+                        <li>Member wajib intro!</li>
+                        <li>Age? At least 12+</li>
+                        <li>Dapat menerima kritikan dan saran (from adm)</li>
+                        <li>No bully/hina member lain</li>
+                        <li>Minimal nimbrung!!! 🗿</li>
+                        <li>Niat, niat, niat!!!</li>
+                        <li>No baperan.. ok??</li>
+                        <li>Dilarang bahas 18+/21+, lgbt, atau porn-!!</li>
+                        <li>Kirim foto/video 1× view</li>
+                        <li>No spam! (chat, ca, stiker)</li>
+                        <li>Toxic sewajarnya aja bjir</li>
+                        <li>Becanda bole, tapi harus tau batasan</li>
+                        <li>Dilarang promote, bukan tempatnya</li>
+                        <li>Keluar masuk? Kick ya.</li>
+                        <li>Jangan kelewatan, jaga sifat! Attitude no 1!</li>
+                    </ul>
+
+                    <h3>⌗ Owner Tercinta 𖦹</h3>
+                    <ul>
+                        <li>Seiraa #6303 (Hiat...)</li>
+                    </ul>
+
+                    <h3>⌗ Wakil Own 𖦹</h3>
+                    <ul>
+                        <li>Kyuni #7758 [all-rounder]</li>
+                    </ul>
+
+                    <h3>⌗ List Admin 𖦹</h3>
+                    <ul>
+                        <li>Xyra #724 [keamanan]</li>
+                        <li>Near #7757 [checker]</li>
+                        <li>Yoru #1728 [editor]</li>
+                    </ul>
+
+                    <h3>⌗ Jadwal Grup 𖦹</h3>
+                    <ul>
+                        <li>Close group :: jam 21 WIB / 22 WITA / 23 WIT</li>
+                        <li>Open group :: jam 05 WIB / 06 WITA / 07 WIT</li>
+                        <li>Except malming <strong>24 jam</strong></li>
+                    </ul>
+
+                    <h3>⌗ Link 𖦹🖇</h3>
+                    <ul>
+                        <li>📍 Acc TikTok: <a href="https://www.tiktok.com/@seiyuuvoice.02?_r=1&_t=ZS-94W6tT8A9Ez"
+                                target="_blank" rel="noopener noreferrer">@seiyuuvoice.02</a></li>
+                        <li>📍 Channel Seiyuu: <a href="https://whatsapp.com/channel/0029VbD3nvLKQuJQxBheS732"
+                                target="_blank" rel="noopener noreferrer">WhatsApp Channel</a></li>
+                    </ul>
+
+                    <p class="footer-text">Have fun ya!, and betah-betah-!! &lt;3</p>
+                </div> -->
+                <div class="about-content">
+                    <p class="welcome-text">ꙍeꙆcᨵოe ƚᨵ <strong>本 𝘀𝗲ׄ𝝸𝘆ׄ𝞄𝞄 𝘃𝗼ֿ𝝸𝗰𝗲ׄ `⛩️ [ᦨeიe𝗋αƚꪱᨵი
+                            2]</strong></p>
+
+                    <p class="warning">‼️𝗁α𝗋α𝗉 ᖯαcα 𝖽eꜱk𝗋ꪱ𝗉ꜱꪱ ‼️</p>
+
+                    <h3>⌗ 𝗋𝗎Ꙇeꜱ!! 𖦹</h3>
+                    <ul>
+                        <li>ოeოᖯα𝗋 ꙍαȷꪱᖯ ꪱიƚ𝗋ᨵ!</li>
+                        <li>αᦨe?αƚ Ꙇeαꜱƚ 12+</li>
+                        <li>𝖽α𝗉αƚ ოeიe𝗋ꪱოα k𝗋ꪱƚꪱkαი 𝖽αი ꜱα𝗋αი(ẜ𝗋ᨵო α𝖽ო)</li>
+                        <li>იᨵ ᖯ𝗎ꙆꙆყ/𝗁ꪱიα ოeოᖯe𝗋 Ꙇαꪱი</li>
+                        <li>ოꪱიꪱოαꙆ იꪱოᖯ𝗋𝗎იᦨ!!!🗿</li>
+                        <li>იꪱαƚ, იꪱαƚ, იꪱαƚ!!!</li>
+                        <li>იᨵ ᖯα𝗉e𝗋αი..ᨵk??</li>
+                        <li>𝖽ꪱꙆα𝗋αიᦨ ᖯα𝗁αꜱ 18+/21+, Ꙇᦨᖯƚ, αƚα𝗎 𝗉ᨵ𝗋ი-!!</li>
+                        <li>kꪱ𝗋ꪱო ẜᨵƚᨵ/vꪱ𝖽eᨵ 1× vꪱeꙍ</li>
+                        <li>ᥒ᥆ ꜱ⍴ᥲო! (c𝗁αƚ, cα, ꜱƚꪱke𝗋)</li>
+                        <li>ƚᨵⅹꪱc ꜱeꙍαȷα𝗋იყα αȷα ᖯȷꪱ𝗋</li>
+                        <li>ᖯecαი𝖽α ᖯᨵꙆe, ƚα𝗉ꪱ 𝗁α𝗋𝗎ꜱ ƚα𝗎 ᖯƚꜱαი</li>
+                        <li>𝖽ꪱꙆα𝗋αიᦨ 𝗉𝗋ᨵოᨵƚe, ᖯ𝗎kი ƚო𝗉αƚიყα</li>
+                        <li>keꙆ𝗎α𝗋 ოαꜱ𝗎k? kꪱck ყα.</li>
+                        <li>ȷαიᦨαი keꙆeꙍαƚαი, ȷαᦨα ꜱꪱẜαƚ! αƚƚꪱƚ𝗎𝖽e იᨵ 1!</li>
+                    </ul>
+
+                    <h3>⌗ ᨵꙍიe𝗋 ƚe𝗋cꪱიƚα𝗁 𖦹</h3>
+                    <ul>
+                        <li>⊹ 𝙎𝙚𝙞𝙧𝙖𝙖 #6303 (Hiat...) </li>
+                    </ul>
+
+                    <h3>⌗ ꙍαkꪱꙆ ᨵꙍი 𖦹</h3>
+                    <ul>
+                        <li>⊹ 𝙆𝙮𝙪𝙣𝙞 #7758 [αꙆꙆ-𝗋ᨵ𝗎ი𝖽e𝗋]</li>
+                    </ul>
+
+                    <h3>⌗ Ꙇꪱꜱƚ eƚოꪱი 𖦹</h3>
+                    <ul>
+                        <li>⊹ 𝙓𝙮𝙧𝙖 #724[keαოαიαი]</li>
+                        <li>⊹ 𝙉𝙚𝙖𝙧 #7757 [c𝗁ecke𝗋]</li>
+                        <li>⊹ 𝙔𝙤𝙧𝙪 #1728 [e𝖽ꪱƚᨵ𝗋]</li>
+                        <li>⊹ 𝙇𝙞𝙖𝙢 #8128 [ꪱnternαꪱ securitყ]</li>
+                        <li>⊹ ... </li>
+                    </ul>
+
+                    <h3>⌗ Jadwal Grup 𖦹</h3>
+                    <ul>
+                        <li>+ cꙆᨵꜱe ᦨ𝗋ᨵ𝗎𝗉 :: ȷαო 21 ᨰꪱᖯ/ 22 ꙍꪱƚα / 23 ꙍꪱƚ. </li>
+                        <li>+ ᨵ𝗉eი ᦨ𝗋ᨵ𝗎𝗉 :: ȷαო 5 ꙍꪱᖯ/ 6 ꙍꪱƚα / 7 ᨰꪱƚ</li>
+                        <li>+ eⅹce𝗉ƚ ოαꙆოꪱიᦨ <strong>24ȷαო</strong></li>
+                    </ul>
+
+                    <h3>⌗ Ꙇꪱიk 𖦹🖇</h3>
+                    <ul>
+                        <li>📍αcc ƚꪱkƚᨵk : <a href="https://www.tiktok.com/@seiyuuvoice.02?_r=1&_t=ZS-94W6tT8A9Ez"
+                                target="_blank" rel="noopener noreferrer">@seiyuuvoice.02</a></li>
+                        <li>📍c𝗁αიeꙆ ꜱeꪱყ𝗎𝗎 : <a href="https://whatsapp.com/channel/0029VbD3nvLKQuJQxBheS732"
+                                target="_blank" rel="noopener noreferrer">WhatsApp Channel</a></li>
+                    </ul>
+
+                    <p class="footer-text">𝗁αve ẜ𝗎ი ყα!, αი𝖽 ᖯeƚα𝗁-ᖯeƚα𝗁-!! &lt;3</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="text" id="document">
+            <div class="grid">
+            </div>
+
+            <div class="intro-box">
+                <h3>📋 Format Intro</h3>
+                <div class="copy-container">
+                    <pre id="introText">
+∘₊✧───────────✧₊∘
+*ꙍeꙆcᨵოe ƚᨵ " 本 𝘀𝗲ׄ𝝸𝘆ׄ𝞄𝞄 𝘃𝗼ֿ𝝸𝗰𝗲ׄ `⛩️"*
+—
+
+『🍙』იαოα :
+> `isi disini yapp`
+
+『🐇』𝗎ო𝗎𝗋 :
+> `isi disini yapp`
+
+『🎐』ᦨeი𝖽e𝗋 :
+> `isi disini yapp`
+
+『🌊』ƚყ𝗉e vᨵꪱce :
+> `isi disini yapp`
+
+
+ყᨵ𝗋ᨵꜱ𝗁ꪱk𝗎 ‹𝟹 </pre>
+                    <button onclick="copyIntro()" class="btn-copy">Salin Format</button>
+                </div>
+                <p id="copyStatus" style="display:none; color: var(--accent); font-size: 0.8rem; margin-top: 5px;">
+                    Berhasil
+                    disalin! ✨</p>
+            </div>
+        </section>
+
+        <section class="gallery-section" id="gallery">
+            <div class="container">
+                <h2>Seiyuu Voice Gallery</h2>
+                <p>Lihat karya dari Seiyuu Voice</p>
+                <a href="gallery.html" class="gallery-big">Buka Galeri</a>
+            </div>
+        </section>
+
+        <section class="cta-section" id="join">
+            <div class="container">
+                <h2>Join Our Community</h2>
+                <p>
+                    Connect with fellow anime fans and voice acting enthusiasts!
+                </p>
+                <a href="https://chat.whatsapp.com/L0AVT6RCDSt1fvbVVtorko?mode=hq2tcla" class="cta-big" target="_blank"
+                    rel="noopener noreferrer">
+                    Join our WhatsApp Group
+                </a>
+            </div>
+        </section>
+
+        <!-- ================= STATUS ================= -->
+        <section class="status-box reveal" id="status">
+            <h2>Server Status</h2>
+            <p>In-Game Time:</p>
+            <time id="clock">Loading...</time>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="year"></span> Seiyuu Voice Community</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Pastikan HTML selesai dimuat sebelum menjalankan script
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.getElementById("menu-toggle");
+            const nav = document.getElementById("nav-menu");
+
+            // Mengambil semua tautan di dalam navigasi
+            const navLinks = nav ? nav.querySelectorAll("a") : [];
+
+            // Keamanan: Cek apakah elemen benar-benar ada di halaman
+            if (toggle && nav) {
+
+                // 1. Fungsi Toggle Menu
+                toggle.addEventListener("click", (e) => {
+                    e.stopPropagation(); // Mencegah klik tembus ke document
+                    nav.classList.toggle("active");
+
+                    // Update aria-expanded untuk aksesibilitas
+                    const isActive = nav.classList.contains("active");
+                    toggle.setAttribute("aria-expanded", isActive);
+                });
+
+                // 2. Tutup menu otomatis saat tautan diklik (UX untuk mobile)
+                navLinks.forEach(link => {
+                    link.addEventListener("click", () => {
+                        nav.classList.remove("active");
+                        toggle.setAttribute("aria-expanded", "false");
+                    });
+                });
+
+                // 3. Tutup menu jika user mengklik sembarang tempat di luar menu
+                document.addEventListener("click", (e) => {
+                    const isClickInsideMenu = nav.contains(e.target);
+                    const isClickOnToggle = toggle.contains(e.target);
+
+                    if (!isClickInsideMenu && !isClickOnToggle && nav.classList.contains("active")) {
+                        nav.classList.remove("active");
+                        toggle.setAttribute("aria-expanded", "false");
+                    }
+                });
+            }
+
+            initClock();
+
+            // const yearEl = document.getElementById("year");
+            // if (yearEl) yearEl.textContent = new Date().getFullYear();
+        });
+
+        // document.getElementById("year").textContent = new Date().getFullYear();
+
+        /* ===============================
+           COPY INTRO (Better UX)
+        ================================= */
+        function copyIntro() {
+            const intro = document.getElementById("introText");
+            const status = document.getElementById("copyStatus");
+
+            if (!intro) return;
+
+            navigator.clipboard.writeText(intro.innerText)
+                .then(() => {
+                    if (!status) return;
+                    status.style.display = "block";
+                    status.textContent = "Berhasil disalin! ✨";
+
+                    setTimeout(() => {
+                        status.style.display = "none";
+                    }, 2000);
+                })
+                .catch(() => {
+                    if (!status) return;
+                    status.style.display = "block";
+                    status.textContent = "Gagal menyalin ❌";
+                });
+        }
+
+        /* ===============================
+           LIVE CLOCK
+        ================================= */
+        function initClock() {
+            const clock = document.getElementById("clock");
+            if (!clock) return;
+
+            const updateClock = () => {
+                clock.textContent = new Date().toLocaleTimeString("id-ID", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                });
+            };
+
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+    </script>
+
+</body>
+
+</html>

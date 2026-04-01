@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Seiyuu Voice x Glash Management</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .partners {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            animation: zoomIn 1s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .partner-card {
+            text-align: center;
+        }
+
+        .partner-card img {
+            width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 111, 168, 0.3);
+            transition: transform 0.3s ease;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .partner-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .partner-name {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .divider {
+            font-size: 3rem;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .announcement {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .announcement h2 {
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .announcement p {
+            margin-bottom: 10px;
+        }
+
+        /* =========================
+   FADE IN
+========================= */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-3 {
+            animation-delay: 1s;
+        }
+
+        .delay-4 {
+            animation-delay: 1.4s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+   CINEMATIC REVEAL (LEFT RIGHT)
+========================= */
+        .reveal {
+            opacity: 0;
+            transform: translateX(60px);
+            animation: revealAnim 1s ease forwards;
+        }
+
+        .reveal.left {
+            transform: translateX(-60px);
+            animation-delay: 0.5s;
+        }
+
+        .reveal.right {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes revealAnim {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* =========================
+   LOGO GLOW EFFECT
+========================= */
+        .partner-card img {
+            transition: all 0.4s ease;
+            box-shadow: 0 0 0 rgba(255, 111, 168, 0);
+        }
+
+        .partner-card img:hover {
+            transform: scale(1.08);
+            box-shadow:
+                0 0 20px rgba(255, 111, 168, 0.6),
+                0 0 40px rgba(255, 111, 168, 0.3),
+                0 0 60px rgba(255, 111, 168, 0.2);
+        }
+
+        /* =========================
+   CINEMATIC FLASH (PAS LOAD)
+========================= */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: white;
+            opacity: 0.15;
+            animation: flash 1s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            margin-top: 50px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile */
+        @media(max-width:768px) {
+            .partners {
+                flex-direction: column;
+            }
+
+            .divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 class="fade-in delay-1">Official Partnership</h1>
+
+        <div class="partners">
+
+            <!-- Glash -->
+            <div class="partner-card reveal left">
+                <img src="assets/images/glash.png" alt="Glash Management">
+                <div class="partner-name">Glash Management</div>
+            </div>
+
+            <div class="divider">X</div>
+
+            <!-- Seiyuu Voice -->
+            <div class="partner-card reveal right">
+                <img src="assets/images/logo.png" alt="Seiyuu Voice">
+                <div class="partner-name">Seiyuu Voice</div>
+            </div>
+
+        </div>
+
+        <div class="announcement fade-in delay-3">
+            <h2>𝐍𝐄𝐖 𝐌𝐄𝐃𝐈𝐀 𝐏𝐀𝐑𝐓𝐍𝐄𝐑</h2>
+
+            <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.2); margin: 20px 0;">
+
+            <p>
+                Dengan ini, <strong>Glash Management</strong> resmi mengumumkan media partner baru yang akan menjalin
+                hubungan baik ke depannya.
+                Terima kasih untuk <strong>Seiyuu Voice</strong> karena telah memilih kami sebagai partnership yang
+                terpercaya.
+            </p>
+
+            <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.2); margin: 20px 0;">
+
+            <p style="opacity:0.8; margin-top:15px;">
+                Seiyuu Voice dan Glash Management kini bekerja sama untuk membangun komunitas voice acting yang lebih
+                berkembang, kreatif, dan kompetitif.
+            </p>
+
+            <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.2); margin: 20px 0;">
+
+            <p><strong>With Glash, We shine together</strong></p>
+        </div>
+
+        <div class="footer fade-in delay-4">
+            ©️ All Rights Reserved by Glash Management
+        </div>
+
+    </div>
+
+</body>
+
+</html>
