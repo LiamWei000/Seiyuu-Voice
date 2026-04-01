@@ -299,6 +299,38 @@
 
     </div>
 
+    <audio id="bgMusic" loop>
+        <source src="assets/music/bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const music = document.getElementById("bgMusic");
+        music.volume = 0;
+
+        function fadeInAudio(audio, duration = 6000) {
+            let end = 0.4;
+            let stepTime = 50;
+            let steps = duration / stepTime;
+            let volumeStep = end / steps;
+
+            let fade = setInterval(() => {
+                if (audio.volume < end) {
+                    audio.volume += volumeStep;
+                } else {
+                    audio.volume = end;
+                    clearInterval(fade);
+                }
+            }, stepTime);
+        }
+
+        document.addEventListener("click", () => {
+            setTimeout(() => {
+                music.play();
+                fadeInAudio(music, 5000);
+            }, 800); // delay biar sync animasi
+        }, { once: true });
+    </script>
+
 </body>
 
 </html>
