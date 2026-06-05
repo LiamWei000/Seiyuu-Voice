@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Seiyuu Voice - A friendly WhatsApp community for anime fans exploring Japanese Voice Acting and Voice Club Japan culture.">
-
     <title>Seiyuu Voice Community</title>
-
-    <link rel="stylesheet" href="css/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
     <meta property="og:title" content="Seiyuu Voice Community">
     <meta property="og:description" content="A friendly WhatsApp community for anime voice acting fans.">
@@ -21,12 +14,572 @@
 
     <link rel="icon" href="assets/icons/favicon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
     <style>
+        /* =========================================
+           1. VARIABLES & SETUP
+        ========================================= */
+        
+         :root {
+            --pink-main: #ff6fa8;
+            --pink-hover: #ff4c92;
+            --pink-soft: #ffd6e7;
+            --pink-bg: #fff2f7;
+            --navy: #2c3558;
+            --white: #ffffff;
+            --transition-speed: 0.3s;
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 111, 168, 0.2);
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --radius: 15px;
+            --transition: all 0.3s ease;
+            --bg-main: #ffffff;
+            --text-main: #2c3558;
+        }
+        
+        body.dark {
+            --bg-main: #121212;
+            --text-main: #f0f0f0;
+            --pink-bg: #1a1a1a;
+            --pink-soft: #2a2a2a;
+            --white: #1e1e1e;
+            --navy: #e4e8ff;
+        }
+        /* Reset */
+        
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        /* =========================================
+           2. TYPOGRAPHY & LAYOUT
+        ========================================= */
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        h1,
+        h2 {
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px dashed var(--pink-main);
+            outline-offset: 4px;
+        }
+        /* =========================================
+           3. NAVIGATION BAR
+        ========================================= */
+        
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--pink-main);
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 12px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            position: relative;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color var(--transition-speed) ease;
+        }
+        
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: var(--pink-main);
+            transition: width .25s ease;
+        }
+        
+        nav a:hover {
+            color: var(--pink-main);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        /* =========================================
+           4. DARK MODE TOGGLE
+        ========================================= */
+        
+        #theme-toggle {
+            background: var(--pink-soft);
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        
+        #theme-toggle:hover {
+            background: var(--pink-main);
+            transform: scale(1.1) rotate(20deg);
+        }
+        /* =========================================
+           5. BUTTONS & CTA
+        ========================================= */
+        
+        .cta-button,
+        .cta-big {
+            display: inline-block;
+            background: var(--pink-main);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: background var(--transition-speed) ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(255, 111, 168, 0.3);
+        }
+        
+        .cta-button {
+            padding: 12px 28px;
+        }
+        
+        .cta-big {
+            padding: 15px 35px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover,
+        .cta-big:hover {
+            background: var(--pink-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 111, 168, 0.45);
+        }
+        
+        .cta-button:active,
+        .cta-big:active {
+            transform: scale(0.97);
+        }
+        /* =========================================
+           6. HERO SECTION
+        ========================================= */
+        
+        .hero {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: var(--pink-soft);
+            border-radius: 50%;
+            top: -120px;
+            left: -120px;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: #ffe3ef;
+            border-radius: 50%;
+            bottom: -100px;
+            right: -80px;
+            z-index: 0;
+            opacity: 0.4;
+        }
+        
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 520px;
+        }
+        
+        .hero-text h1 {
+            font-size: 3rem;
+            color: var(--pink-main);
+            line-height: 1.2;
+        }
+        
+        .tagline {
+            margin: 15px 0 25px;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            opacity: 0.85;
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        
+        .hero-image img {
+            max-width: 380px;
+            width: 100%;
+            height: auto;
+            transition: transform .4s ease;
+            border-radius: 16px;
+        }
+        
+        .hero-image img:hover {
+            transform: scale(1.05) rotate(-1deg);
+        }
+        /* =========================================
+           7. ABOUT SECTION
+        ========================================= */
+        
+        .about {
+            padding: 80px 0;
+            background: var(--pink-bg);
+        }
+        
+        .about h2 {
+            color: var(--pink-main);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        
+        .about-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .about-content>p:first-of-type {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .about-content h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: var(--pink-main);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+        }
+        
+        .about-content ul,
+        .about-content ol {
+            padding-left: 22px;
+        }
+        
+        .about-content li {
+            margin-bottom: 6px;
+        }
+        
+        .about-content a {
+            color: var(--pink-main);
+            transition: color 0.2s;
+        }
+        
+        .about-content a:hover {
+            color: var(--pink-hover);
+        }
+        /* =========================================
+           8. PARTNERSHIP & CTA SECTIONS
+        ========================================= */
+        
+        .partnership-section {
+            padding: 80px 0;
+            background: var(--white);
+            text-align: center;
+        }
+        
+        .partnership-section h2,
+        .cta-section h2 {
+            color: var(--pink-main);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .partnership-section p,
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        .gallery-big {
+            display: inline-block;
+            background: var(--pink-main);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 111, 168, 0.3);
+        }
+        
+        .gallery-big:hover {
+            background: var(--pink-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 111, 168, 0.4);
+        }
+        
+        .gallery-big:active {
+            transform: scale(0.97);
+        }
+        
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: var(--pink-bg);
+        }
+        /* =========================================
+           9. FOOTER
+        ========================================= */
+        
+        footer {
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            padding: 25px 20px;
+        }
+        
+        footer p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
         #year {
             font-weight: bold;
         }
+        /* =========================================
+           10. BACK TO TOP BUTTON
+        ========================================= */
+        
+        #back-to-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: var(--pink-main);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 111, 168, 0.4);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #back-to-top:hover {
+            background: var(--pink-hover);
+            transform: translateY(-3px);
+        }
+        /* =========================================
+           11. HAMBURGER MENU
+        ========================================= */
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 5px;
+            gap: 5px;
+        }
+        
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: var(--text-main);
+            border-radius: 3px;
+            transition: all var(--transition-speed) ease;
+            display: block;
+        }
+        /* Hamburger → X animation */
+        
+        .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        /* =========================================
+           12. RESPONSIVE
+        ========================================= */
+        
+        @media (max-width: 768px) {
+            nav {
+                position: absolute;
+                top: 68px;
+                right: 20px;
+                background: var(--white);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+                padding: 20px;
+                border-radius: 12px;
+                width: 210px;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all var(--transition-speed) ease;
+                z-index: 99;
+            }
+            nav.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 14px;
+                text-align: center;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            .hero-image {
+                justify-content: center;
+                margin-top: 20px;
+            }
+            .hero-image img {
+                max-width: 260px;
+            }
+            .gallery-section h2,
+            .partnership-section h2,
+            .about h2,
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            .gallery-big {
+                width: 100%;
+                max-width: 280px;
+                padding: 12px 20px;
+            }
+            #back-to-top {
+                bottom: 20px;
+                right: 16px;
+            }
+        }
     </style>
-
 </head>
 
 <body>
@@ -47,15 +600,22 @@
                 </ul>
             </nav>
 
-            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-actions">
+                <!-- FIX: Tombol dark mode sekarang ada di HTML -->
+                <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main>
+
+        <!-- HERO SECTION -->
         <section class="hero" id="home">
             <div class="container hero-container">
                 <div class="hero-text">
@@ -75,47 +635,45 @@
             </div>
         </section>
 
+        <!-- ABOUT SECTION -->
         <section class="about" id="about">
             <div class="container">
                 <div class="about-content">
                     <h2>About Us</h2>
 
-                    <p>Komunitas ini dibuat sebagai ruang yang ramah, aktif, serta mendukung, agar setiap anggota bisa berkembang dan menikmati proses belajar dalam dunia va, sebaik dan senyaman mungkin.
-                    </p>
+                    <p>Komunitas ini dibuat sebagai ruang yang ramah, aktif, serta mendukung, agar setiap anggota bisa berkembang dan menikmati proses belajar dalam dunia va, sebaik dan senyaman mungkin.</p>
 
                     <h3>🎯 Visi</h3>
-                    <p>
-                        Menjadi wadah bagi parah anggota s.v untuk belajar, berlatih, serta mengembangkan/meningkatkan skillnya dalam dunia voice acting.
-                    </p>
+                    <p>Menjadi wadah bagi para anggota S.V untuk belajar, berlatih, serta mengembangkan/meningkatkan skillnya dalam dunia voice acting.</p>
 
                     <h3>🎳 Misi</h3>
                     <ul>
-                        <li>Menjadi komunitas yang ramah, aktif,dan saling mendukung bagi para anggota s.v</li>
-                        <li>Mengembangkan kemampuan va para anggota s.v</li>
+                        <li>Menjadi komunitas yang ramah, aktif, dan saling mendukung bagi para anggota S.V</li>
+                        <li>Mengembangkan kemampuan VA para anggota S.V</li>
                         <li>Mendorong kreatifitas serta ide-ide dalam menghidupkan karakter lewat suara</li>
-                        <li>Membuat berbagai konten va/vi bersama sebagai bentuk latihan dan karya komunitas s.v</li>
+                        <li>Membuat berbagai konten VA/VI bersama sebagai bentuk latihan dan karya komunitas S.V</li>
                     </ul>
 
-                    <h3>📄 Aturan sebelum masuk :</h3>
+                    <h3>📄 Aturan sebelum masuk</h3>
                     <ul>
                         <li>Tau dan mengerti tentang dasar voice acting</li>
                         <li>Mengikuti semua aturan dalam grup</li>
-                        <li>Gak min literasi</li>
-                        <li>Umur at least 11/11+!</li>
-                        <li>Bisa nerima kritikan dan saran dari admin</li>
-                        <li>Good attitude (no 1)</li>
+                        <li>Tidak min literasi</li>
+                        <li>Umur minimal 11+</li>
+                        <li>Bisa menerima kritikan dan saran dari admin</li>
+                        <li>Good attitude (no. 1)</li>
                     </ul>
 
-                    <h3>🗝 Kenalan sama admin grup yuk! :</h3>
+                    <h3>🗝 Kenalan sama admin grup yuk!</h3>
                     <ol>
                         <li>Yunna (Owner)</li>
                         <li>Yuni (Wakil)</li>
-                        <li>Liam (Internal security)</li>
+                        <li>Liam (Internal Security)</li>
                         <li>Aluna (Security)</li>
                         <li>Miri (Editor)</li>
                     </ol>
 
-                    <h3>🥊 Kepoin aktivitas di Group Chat yuk! :</h3>
+                    <h3>🥊 Kepoin aktivitas di Group Chat yuk!</h3>
                     <ul>
                         <li>Nimbrung (utama)</li>
                         <li>Tugas ngonten</li>
@@ -135,41 +693,54 @@
 
                     <h3>🕐 Jadwal</h3>
                     <ul>
-                        <li># Tutup gc : <strong>21 wib/ 22 wita/ 23 wit</strong></li>
-                        <li># Buka gc : <strong>4 wib/ 5 wita/ 6 wit</strong></li>
-                        <li># MALMING <strong>24 JAM</strong>!!!</li>
+                        <li>Tutup GC : <strong>21 WIB / 22 WITA / 23 WIT</strong></li>
+                        <li>Buka GC : <strong>04 WIB / 05 WITA / 06 WIT</strong></li>
+                        <li>MALMING : <strong>24 JAM!!!</strong></li>
                     </ul>
 
-                    <h3>🎬 Akun medsos Seiyuu voice</h3>
+                    <h3>🎬 Akun medsos Seiyuu Voice</h3>
                     <ul>
-                        <li>📍Tiktok : <a href="https://www.tiktok.com/@seiyuuvoice.g2?_r=1&_t=ZS-95sZwnmAum5" target="_blank" rel="noopener noreferrer">@seiyuuvoice.02</a></li>
-                        <li>📍Channel : <a href="https://whatsapp.com/channel/0029VbD3nvLKQuJQxBheS732" target="_blank" rel="noopener noreferrer">WhatsApp Channel</a></li>
-                        <li>📍Instagram : <a href="https://www.instagram.com/seiyuuvoice.02?igsh=MXVhMnh6MDJvNTljOA==" target="_blank" rel="noopener noreferrer">@seiyuuvoice.02</a></li>
-                        <li>📍Website : <a href="https://liamwei000.github.io/Seiyuu-Voice/" target="_blank" rel="noopener noreferrer">Seiyuu-Voice</a></li>
+                        <li>📍 TikTok :
+                            <a href="https://www.tiktok.com/@seiyuuvoice.g2?_r=1&_t=ZS-95sZwnmAum5" target="_blank" rel="noopener noreferrer">@seiyuuvoice.02</a>
+                        </li>
+                        <li>📍 Channel :
+                            <a href="https://whatsapp.com/channel/0029VbD3nvLKQuJQxBheS732" target="_blank" rel="noopener noreferrer">WhatsApp Channel</a>
+                        </li>
+                        <li>📍 Instagram :
+                            <a href="https://www.instagram.com/seiyuuvoice.02?igsh=MXVhMnh6MDJvNTljOA==" target="_blank" rel="noopener noreferrer">@seiyuuvoice.02</a>
+                        </li>
+                        <li>📍 Website :
+                            <a href="https://liamwei000.github.io/Seiyuu-Voice/" target="_blank" rel="noopener noreferrer">Seiyuu-Voice</a>
+                        </li>
                     </ul>
                 </div>
+            </div>
+        </section>
+        <!-- FIX: Tutup section about di sini, bukan setelah partnership -->
 
-                <section class="partnership-section" id="partnership">
-                    <div class="container">
-                        <h2>Official Partnership</h2>
-                        <p>Partner kami dalam mengembangkan komunitas Seiyuu Voice</p>
-                        <a href="partnership.html" target="_blank" rel="noopener noreferrer" class="gallery-big">
+        <!-- PARTNERSHIP SECTION -->
+        <!-- FIX: Tidak lagi tersarang di dalam about-content -->
+        <section class="partnership-section" id="partnership">
+            <div class="container">
+                <h2>Official Partnership</h2>
+                <p>Partner kami dalam mengembangkan komunitas Seiyuu Voice</p>
+                <a href="partnership.html" target="_blank" rel="noopener noreferrer" class="gallery-big">
                     Lihat Partnership
                 </a>
-                    </div>
-                </section>
+            </div>
+        </section>
 
-                <section class="cta-section" id="join">
-                    <div class="container">
-                        <h2>Join Our Community</h2>
-                        <p>
-                            Connect with fellow anime fans and voice acting enthusiasts!
-                        </p>
-                        <a href="https://whatsapp.com/channel/0029VbD3nvLKQuJQxBheS732" class="cta-big" target="_blank" rel="noopener noreferrer">
+        <!-- CTA / JOIN SECTION -->
+        <!-- FIX: Tidak lagi tersarang di dalam about-content -->
+        <section class="cta-section" id="join">
+            <div class="container">
+                <h2>Join Our Community</h2>
+                <p>Connect with fellow anime fans and voice acting enthusiasts!</p>
+                <a href="https://whatsapp.com/channel/0029VbD3nvLKQuJQxBheS732" class="cta-big" target="_blank" rel="noopener noreferrer">
                     Follow the channel to join the group
                 </a>
-                    </div>
-                </section>
+            </div>
+        </section>
 
     </main>
 
@@ -179,10 +750,83 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Kembali ke atas">↑</button>
 
     <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
+        // =========================================
+        //  INIT: Semua logic setelah DOM siap
+        // =========================================
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // --- Tahun otomatis ---
+            document.getElementById("year").textContent = new Date().getFullYear();
+
+            // --- Mobile menu toggle ---
+            const toggle = document.getElementById("menu-toggle");
+            const nav = document.getElementById("nav-menu");
+
+            if (toggle && nav) {
+                const navLinks = nav.querySelectorAll("a");
+
+                toggle.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const isActive = nav.classList.toggle("active");
+                    toggle.setAttribute("aria-expanded", isActive);
+                });
+
+                navLinks.forEach(link => {
+                    link.addEventListener("click", () => {
+                        nav.classList.remove("active");
+                        toggle.setAttribute("aria-expanded", "false");
+                    });
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!nav.contains(e.target) && !toggle.contains(e.target) && nav.classList.contains("active")) {
+                        nav.classList.remove("active");
+                        toggle.setAttribute("aria-expanded", "false");
+                    }
+                });
+            }
+
+            // --- FIX: Deklarasi toggleBtn SEBELUM digunakan ---
+            const toggleBtn = document.getElementById("theme-toggle");
+
+            if (toggleBtn) {
+                // Load saved theme atau deteksi preferensi sistem
+                const savedTheme = localStorage.getItem("theme");
+                if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                    document.body.classList.add("dark");
+                    toggleBtn.textContent = "☀️";
+                }
+
+                // Toggle on click
+                toggleBtn.addEventListener("click", () => {
+                    const isDark = document.body.classList.toggle("dark");
+                    localStorage.setItem("theme", isDark ? "dark" : "light");
+                    toggleBtn.textContent = isDark ? "☀️" : "🌙";
+                });
+            }
+
+            // --- Back to top button ---
+            const backToTop = document.getElementById("back-to-top");
+            if (backToTop) {
+                window.addEventListener("scroll", () => {
+                    backToTop.classList.toggle("visible", window.scrollY > 300);
+                }, {
+                    passive: true
+                });
+
+                backToTop.addEventListener("click", () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                });
+            }
+
+        });
     </script>
 
 </body>
